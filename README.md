@@ -3,5 +3,5 @@ Aplikasi pendeteksi penyakit tanaman Glycine max (Kedelai) berbasis Computer Vis
 
 Kelompok Rice Science 
 Ketua Kelompok: 
-Anggota 1: 
+Anggota 1: Rayhan Adi Wicaksono-21/477186/TK/52550
 Anggota 2: 
