@@ -26,7 +26,8 @@ Glycine max, atau kedelai, adalah tanaman yang sangat erat dengan keseharian mas
 Wahyuni, I.T. (2005) KERAGAAN USAHATANI KEDELAI,  PERMASALAHAN DAN UPAYA PENINGKATAN PENDAPATAN PETANI [Preprint]. <br />
 
 
-## Ide solusi yang diusulkan beserta rancangan fitur<br />
+
+## Ide solusi yang diusulkan<br />
 ### Solusi:<br />
 Aplikasi pendeteksi penyakit tanaman Glycine max (Kedelai) berbasis Computer Vision.<br />
 ### Rancangan Fitur Solusi:<br />
@@ -47,10 +48,8 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Terdapat banyak spesies tanaman yang dapat dideteksi
 - Memiliki banyak jenis penyakit yang dapat dideteksi
-
 Kekurangan<br />
 - Harus memfoto keseluruhan tanaman terlebih dahulu
-
 Key Competitive Advantage & Unique Value<br />
 - Bisa menggunakan foto bagian tanaman
 2. KOMPETITOR 2<br />
@@ -61,11 +60,9 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Mendeteksi penyakit tanaman, kemudian memberikan rekomendasi terkait treatment selanjutnya
 - Terdapat fitur premium untuk bertanya kepada pakar di bidang agriculture.
-
 Kekurangan<br />
 - Perlu menentukan jenis tanaman terlebih dahulu
 - Tidak spesifik untuk tanaman kedelai
-
 Key Competitive Advantage & Unique Value<br />
 - Spesifik untuk tanaman kedelai
 3. KOMPETITOR 3<br />
@@ -76,10 +73,8 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Dapat mendeteksi penyakit
 - Memberikan info mengenai penyakit
-
 Kekurangan<br />
 - Tidak support tanaman selain kentang
 - English only
-
 Key Competitive Advantage & Unique Value<br />
 - Penggunaan Bahasa Indonesia agar lebih dimengerti oleh penduduk lokal. 
