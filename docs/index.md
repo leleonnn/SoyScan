@@ -1,0 +1,75 @@
+Kelompok Rice Science
+Ketua Kelompok: Muhammad Razza Titian Jiwani - 21/475348/TK/52470
+Anggota 1: Rayhan Adi Wicaksono-21/477186/TK/52550
+Anggota 2: Leonard Mars Kurniaputra - 21/482745/TK/53360
+
+“Project Senior Project TI”
+Departemen Teknologi Elektro dan Teknologi Informasi, Fakultas Teknik, Universitas Gadjah Mada
+
+Nama Kelompok
+Rice Science
+
+Nama Produk
+SoyScan
+
+Permasalahan yang dipecahkan
+Latar Belakang:
+Glycine max, atau kedelai, adalah tanaman yang sangat erat dengan keseharian masyarakat Indonesia. Kedelai merupakan salah satu komoditas utama Indonesia yang dapat diolah menjadi bahan makanan favorit masyarakat Indonesia seperti tempe, tahu, oncom, dan kecap. Namun disisi lain, budidaya tanaman kedelai memerlukan perhatian khusus mengingat kedelai merupakan tanaman yang rentan terhadap serangan penyakit (Wahyuni, 2005). Bagi petani, penyakit yang muncul pada tanaman yang mereka tani dapat menghambat efisiensi mereka dan menambah biaya untuk pemulihan. Maka dari itu, perlu dibuat sebuah solusi pendeteksian penyakit, dengan menggandeng perkembangan pesat teknologi di tahun 2024 ini. Aplikasi ini tidak hanya mendeteksi penyakit, namun juga memberikan umpan balik berupa informasi penyakit kepada pembudidaya kedelai, dengan tujuan agar penyakit tersebut dapat segera diatasi. Pendeteksian penyakit yang lebih cepat dan tepat dapat membantu petani untuk mengatasi permasalahan tersebut, sehingga menambah efisiensi bertani mereka dan mengurangi biaya yang diperlukan untuk pemulihan.
+Rumusan Permasalahan:
+1. Apakah tanaman Glycine max (Kedelai) terdeteksi memiliki penyakit?
+2. Apa jenis penyakit yang terdeteksi pada tanaman Glycine max (Kedelai)?
+3. Bagaimana klasifikasi jenis penyakit berdasarkan gejala yang terdeteksi?
+4. Bagaimana cara memulihkan tanaman Glycine max (Kedelai) dari penyakit?
+Daftar Pustaka:
+Wahyuni, I.T. (2005) KERAGAAN USAHATANI KEDELAI,  PERMASALAHAN DAN UPAYA PENINGKATAN PENDAPATAN PETANI [Preprint]. 
+
+Ide solusi yang diusulkan beserta rancangan fitur
+Solusi:
+Aplikasi pendeteksi penyakit tanaman Glycine max (Kedelai) berbasis Computer Vision.
+Rancangan Fitur Solusi:
+1. Disease Detector
+Mendeteksi jenis penyakit dari Kedelai menggunakan input daun kedelai.
+2. Disease Information
+Menunjukkan informasi penyakit penyakit yang menyerang tanaman kedelai.
+3. Disease Library
+Kumpulan informasi terkait jenis penyakit yang dapat muncul pada tanaman kedelai.
+
+Analisis Kompetitor 
+1. KOMPETITOR 1
+Nama - PictureThis - Plant Identifier by Glority Global Group Ltd.
+Jenis Kompetitor - Direct
+Jenis Produk - Mobile App
+Target Customer - Petani
+Kelebihan
+- Terdapat banyak spesies tanaman yang dapat dideteksi
+- Memiliki banyak jenis penyakit yang dapat dideteksi
+Kekurangan
+- Harus memfoto keseluruhan tanaman terlebih dahulu
+Key Competitive Advantage & Unique Value
+- Bisa menggunakan foto bagian tanaman
+2. KOMPETITOR 2
+Nama - Agrio
+Jenis Kompetitor - Direct
+Jenis Produk - Mobile App
+Target Customer - Petani
+Kelebihan
+- Mendeteksi penyakit tanaman, kemudian memberikan rekomendasi terkait treatment selanjutnya
+- Terdapat fitur premium untuk bertanya kepada pakar di bidang agriculture.
+Kekurangan
+- Perlu menentukan jenis tanaman terlebih dahulu
+- Tidak spesifik untuk tanaman kedelai
+Key Competitive Advantage & Unique Value
+- Spesifik untuk tanaman kedelai
+3. KOMPETITOR 3
+Nama - Buntata
+Jenis Kompetitor - Direct
+Jenis Produk - Mobile App
+Target Customer - Petani
+Kelebihan
+- Dapat mendeteksi penyakit
+- Memberikan info mengenai penyakit
+Kekurangan
+- Tidak support tanaman selain kentang
+- English only
+Key Competitive Advantage & Unique Value
+- Penggunaan Bahasa Indonesia agar lebih dimengerti oleh penduduk lokal. 
