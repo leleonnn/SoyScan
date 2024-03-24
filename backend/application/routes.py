@@ -35,15 +35,25 @@ def add_disease():
         return jsonify({"error": str(e)})
     
 
-@app.route("/api/disease", methods=["GET"])
-def get_disease_by_name():
+@app.route("/api/disease/<name>", methods=["GET"])
+def get_disease_by_name(name):
     try:
-        body = request.json
-        name = body["name"]
+        if name is None:
+            return jsonify({"error": "Missing 'name' parameter"}), 400
+
         diseases = db.disease.find_one({'name': name})
-        return dumps(diseases)
+        if diseases:
+            return dumps(diseases)
+        else:
+            return jsonify({"error": f"No disease found with name '{name}'"}), 404
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
     except Exception as e:
-        return jsonify({"error": str(e)})
+        # Log the error for debugging
+        return jsonify({"error": "Internal server error"}), 500
+
+
     
 
       
