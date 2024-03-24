@@ -9,10 +9,11 @@ from flask import request, jsonify
 def index():
     return "Hello, World!"
 
+
+# Disease
 @app.route("/api/disease", methods=["POST"])
 def add_disease():
     try:
-
         body = request.json
         name = body["name"]
         rarity = body["rarity"]
@@ -52,6 +53,40 @@ def get_disease_by_name(name):
     except Exception as e:
         # Log the error for debugging
         return jsonify({"error": "Internal server error"}), 500
+    
+
+# Soy
+@app.route("/api/soy", methods=["POST"])
+def predict_soy():
+    try:
+        body = request.json
+        image_link = body["imageLink"]
+
+        # ===
+        # Machine Learning Process
+        # ===
+
+        is_soy_affected = False
+        disease_name = 'Disease Name'
+
+        if is_soy_affected:
+            db.soy.insert_one({
+                "_id": ObjectId(),
+                "imageLink": image_link,
+                "isSoyAffected": is_soy_affected,
+                "diseaseName": disease_name
+            })
+            return jsonify({"message": "Prediction successful, your plant is diseased"})
+        else:
+            db.soy.insert_one({
+                # "_id": ObjectId(),
+                "imageLink": image_link,
+                "isSoyAffected": is_soy_affected
+            })
+            return jsonify({"message": "Prediction successful, your plant is healthy"})
+
+    except Exception as e:
+        return jsonify({"error": str(e)})
 
 
     
