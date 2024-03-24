@@ -88,6 +88,25 @@ def predict_soy():
     except Exception as e:
         return jsonify({"error": str(e)})
 
+@app.route("/api/soy/<id>", methods=["GET"])
+def get_prediction_result(id):
+    try:
+        if id is None:
+            return jsonify({"error": "Missing 'id' parameter"}), 400
+        
+        obj_id = ObjectId(id)
+
+        soy = db.soy.find_one({'_id': obj_id})
+        if soy:
+            return dumps(soy)
+        else:
+            return jsonify({"error": f"Soy not available"}), 404
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": "Internal server error"}), 500
 
     
 

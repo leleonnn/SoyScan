@@ -6,7 +6,7 @@ url = 'http://localhost:5000/api/soy'
 
 # Sample JSON data for the request bodys
 data = {
-    "imageLink": "https://example.com/images2.jpg"
+    "imageLink": "https://example.com/images.jpg"
 }
 
 # Convert the data to JSON format
