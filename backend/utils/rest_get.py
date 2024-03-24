@@ -3,10 +3,6 @@ import requests
 # URL of your Flask API endpoint
 url = 'http://localhost:5000/api/disease/Rust'
 
-# Parameters to include in the GET request
-# params = {
-#     "name": "Rust"
-# }
 headers = {'Content-Type': 'application/json'}
 
 # Send the GET request with parameters
