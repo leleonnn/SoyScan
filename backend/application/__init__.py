@@ -3,7 +3,7 @@ from flask_pymongo import PyMongo
 from dotenv import load_dotenv
 import os
 
-load_dotenv(dotenv_path="../.env")
+load_dotenv()
 
 app = Flask(__name__)
 app.config["SECRET_KEY"] = os.getenv("SECRET_KEY")
@@ -14,6 +14,7 @@ try:
     # Setup MongoDB
     mongodb_client = PyMongo(app)
     db = mongodb_client.db
+    print("Connected to MongoDB")
 except Exception as e:
     print("Error connecting to MongoDB:", e)
 
