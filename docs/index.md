@@ -48,9 +48,9 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Terdapat banyak spesies tanaman yang dapat dideteksi
 - Memiliki banyak jenis penyakit yang dapat dideteksi
-Kekurangan<br />
+<br />Kekurangan<br />
 - Harus memfoto keseluruhan tanaman terlebih dahulu
-Key Competitive Advantage & Unique Value<br />
+<br />Key Competitive Advantage & Unique Value<br />
 - Bisa menggunakan foto bagian tanaman
 2. KOMPETITOR 2<br />
 Nama - Agrio<br />
@@ -60,10 +60,10 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Mendeteksi penyakit tanaman, kemudian memberikan rekomendasi terkait treatment selanjutnya
 - Terdapat fitur premium untuk bertanya kepada pakar di bidang agriculture.
-Kekurangan<br />
+<br />Kekurangan<br />
 - Perlu menentukan jenis tanaman terlebih dahulu
 - Tidak spesifik untuk tanaman kedelai
-Key Competitive Advantage & Unique Value<br />
+<br />Key Competitive Advantage & Unique Value<br />
 - Spesifik untuk tanaman kedelai
 3. KOMPETITOR 3<br />
 Nama - Buntata<br />
@@ -73,8 +73,8 @@ Target Customer - Petani<br />
 Kelebihan<br />
 - Dapat mendeteksi penyakit
 - Memberikan info mengenai penyakit
-Kekurangan<br />
+<br />Kekurangan<br />
 - Tidak support tanaman selain kentang
 - English only
-Key Competitive Advantage & Unique Value<br />
+<br />Key Competitive Advantage & Unique Value<br />
 - Penggunaan Bahasa Indonesia agar lebih dimengerti oleh penduduk lokal. 
