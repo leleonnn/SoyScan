@@ -8,6 +8,7 @@ import boto3
 import cv2
 import numpy as np
 import os
+from ultralytics import YOLO
 
 @app.route("/", methods=["POST"])
 def index():
@@ -146,4 +147,39 @@ def get_image_from_s3():
         return jsonify({"error": f"Internal server error, {e}"}), 500
     
 
-      
+@app.route("/api/predict-image-from-s3", methods=["GET"])
+def predict_image_from_s3():
+    try:
+        if id is None:
+            return jsonify({"error": "Missing 'id' parameter"}), 400
+        
+        s3 = boto3.client('s3')
+        bucket_name = 'soyscan-bucket'
+        image_key = 'frogeye_383_(Small).jpg'
+
+        response = s3.get_object(Bucket=bucket_name, Key=image_key)
+        image_data = response['Body'].read()
+
+        # Convert image data into a numpy array for OpenCV
+        nparr = np.frombuffer(image_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        model = YOLO('/media/rayhanadi/SSD PNY/Kuliah/6th_semester/Senior Project/Soyscan-new/SoyScan/backend/static/models/classify_model.pt')  # load a custom model
+
+        # Predict with the model
+        results = model(img)  # predict on an image
+
+        names_dict = results[0].names
+        probs = results[0].probs.top1
+
+        print(names_dict)
+        print(probs)
+
+        return jsonify({"Success": names_dict[probs]}), 200 
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": f"Internal server error, {e}"}), 500
+    
