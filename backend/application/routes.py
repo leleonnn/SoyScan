@@ -4,6 +4,10 @@ from bson.json_util import dumps
 from bson.objectid import ObjectId
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask import request, jsonify
+import boto3
+import cv2
+import numpy as np
+import os
 
 @app.route("/", methods=["POST"])
 def index():
@@ -106,8 +110,40 @@ def get_prediction_result(id):
         return jsonify({"error": "Invalid request data"}), 400
     except Exception as e:
         # Log the error for debugging
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({"error": f"Internal server error, {e}"}), 500
 
+
+@app.route("/api/get-image", methods=["GET"])
+def get_image_from_s3():
+    try:
+        if id is None:
+            return jsonify({"error": "Missing 'id' parameter"}), 400
+        
+        s3 = boto3.client('s3')
+        bucket_name = 'soyscan-bucket'
+        image_key = 'frogeye_383_(Small).jpg'
+
+        response = s3.get_object(Bucket=bucket_name, Key=image_key)
+        image_data = response['Body'].read()
+
+        # Convert image data into a numpy array for OpenCV
+        nparr = np.frombuffer(image_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        save_path = '/media/rayhanadi/SSD PNY/Kuliah/6th_semester/Senior Project/Soyscan-new/SoyScan/backend/static/images/'
+
+        if not os.path.exists(save_path):
+            os.makedirs(save_path)
+        image_filename = os.path.join(save_path, 'image_from_s3.jpg')
+        cv2.imwrite(image_filename, img)
+
+        return jsonify({"Success": "Bisa cuy"}), 200 
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": f"Internal server error, {e}"}), 500
     
 
       
