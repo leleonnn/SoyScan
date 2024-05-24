@@ -183,3 +183,48 @@ def predict_image_from_s3():
         # Log the error for debugging
         return jsonify({"error": f"Internal server error, {e}"}), 500
     
+@app.route("/api/predict-disease-by-image-key/<key>", methods=["GET"])
+def predict_disease_by_image_key(key):
+    try:
+        if id is None:
+            return jsonify({"error": "Missing 'id' parameter"}), 400
+        
+        s3 = boto3.client('s3')
+        bucket_name = 'soyscan-bucket'
+        image_key = key
+
+        response = s3.get_object(Bucket=bucket_name, Key=image_key)
+        image_data = response['Body'].read()
+
+        # Convert image data into a numpy array for OpenCV
+        nparr = np.frombuffer(image_data, np.uint8)
+        img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
+
+        current_dir = os.path.dirname(__file__)
+        model_path = os.path.join(current_dir, '..', 'static', 'models', 'classify_model.pt')
+        model_path = os.path.normpath(model_path)
+
+        model = YOLO(model_path)  # load a custom model
+
+        # Predict with the model
+        results = model(img)  # predict on an image
+
+        # # Check if the prediction result higher than threshold
+        # for prob in results[0].probs:
+        #     print(prob)
+        #     if prob < 0.4:
+        #         return jsonify({"Success": "Soybean Leaf is not detected"}), 200 
+
+        names_dict = results[0].names
+        probs = results[0].probs.top1
+
+        print(names_dict)
+        print(probs)
+
+        return jsonify({"Success": names_dict[probs]}), 200 
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": f"Internal server error, {e}"}), 500
