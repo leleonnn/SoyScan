@@ -131,7 +131,9 @@ def get_image_from_s3():
         nparr = np.frombuffer(image_data, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-        save_path = '../static/images/'
+        current_dir = os.path.dirname(__file__)
+        save_path = os.path.join(current_dir, '..', 'static', 'models', 'classify_model.pt')
+        save_path = os.path.normpath(save_path)
 
         if not os.path.exists(save_path):
             os.makedirs(save_path)
@@ -164,7 +166,11 @@ def predict_image_from_s3():
         nparr = np.frombuffer(image_data, np.uint8)
         img = cv2.imdecode(nparr, cv2.IMREAD_COLOR)
 
-        model = YOLO('../static/models/classify_model.pt')  # load a custom model
+        current_dir = os.path.dirname(__file__)
+        model_path = os.path.join(current_dir, '..', 'static', 'models', 'classify_model.pt')
+        model_path = os.path.normpath(model_path)
+
+        model = YOLO(model_path)  # load a custom model
 
         # Predict with the model
         results = model(img)  # predict on an image
