@@ -77,7 +77,7 @@ export default function Upload() {
               <input id="file-upload" type="file" className="hidden" onChange={handleUploadLocalFile}/>
             </div>
             <div>
-            <button onClick={handleUploadS3}>S3 Upload</button>
+              <button onClick={handleUploadS3}>S3 Upload</button>
             </div>
           </div>
 
