@@ -3,64 +3,52 @@
 import Image from "next/image";
 import Navbar from ".././components/Navbar";
 import upload from "../../../public/upload.png";
-import { useState } from 'react';
+export { POST } from "next-s3-upload/route";
+import { useS3Upload } from "next-s3-upload";
+import { Fragment, useRef, useState } from 'react';
+import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
+import { v4 as uuidv4 } from "uuid";
 
 export default function Upload() {
 
   const [file, setFile] = useState(null);
-  const [loading, setLoading] = useState(false);
 
-  const handleFileChange = (event) => {
-    setFile(event.target.files[0]);
+  const Bucket = process.env.NEXT_PUBLIC_S3_UPLOAD_BUCKET;
+  const s3 = new S3Client({
+    region: process.env.NEXT_PUBLIC_S3_UPLOAD_REGION,
+    credentials: {
+      accessKeyId: process.env.NEXT_PUBLIC_S3_UPLOAD_KEY,
+      secretAccessKey: process.env.NEXT_PUBLIC_S3_UPLOAD_SECRET,
+    },
+  });
+
+
+
+  const handleUploadLocalFile = (e) => {
+    e.preventDefault();
+    if (!e.target.files) return;
+    setFile(e.target.files[0]);
   };
 
-  const handleUpload = async () => {
+  const handleUploadS3 = async (e) => {
     if (!file) return;
+    e.preventDefault();
+    const ext = file?.name.split(".").at(-1);
+    const uid = uuidv4().replace(/-/g, "");
+    const fileName = `${uid}${ext ? "." + ext : ""}`;
 
-    setLoading(true);
-
-    // Get a pre-signed URL from your backend
-    const response = await fetch('/api/upload', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ name: file.name, type: file.type })
-    });
-
-    const { url, fields } = await response.json();
-
-    // Create a FormData object and append the fields and file
-    const formData = new FormData();
-    Object.entries(fields).forEach(([key, value]) => {
-      formData.append(key, value);
-    });
-    formData.append('file', file);
-
-    // Upload the file directly to S3
-    await fetch(url, {
-      method: 'POST',
-      body: formData
-    });
-
-    // Notify the backend with the file name
-    await fetch('/api/notify', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify({ filename: file.name })
-    });
-
-    setLoading(false);
+    try {
+      const uploadToS3 = new PutObjectCommand({
+        Bucket,
+        Key: fileName,
+        Body: file,
+      });
+      await s3.send(uploadToS3);
+      console.log("File uploaded successfully.");
+    } catch (error) {
+      console.error("Error uploading file:", error);
+    }
   };
-
-
-
-
-
-
-
   
   return (
     <main className="flex flex-col justify-between w-full">
@@ -74,17 +62,27 @@ export default function Upload() {
           Upload a soybean leaf image by pressing button below
           </p>
           <div>
-            <input type="file" onChange={handleFileChange} />
-            <button onClick={handleUpload} className="flex bg-white-1 text-green-1 font-bold border-4 border-green-1 shadow-xl shadow-green-1/30 py-2 px-4 rounded-xl w-56 h-16 mt-7 justify-center items-center hover:bg-purple-200 transition-transform duration-300 transform hover:scale-110 active:scale-95">
+            {/* <input type="file" onChange={handleFileChange} />
+            <button className="flex bg-white-1 text-green-1 font-bold border-4 border-green-1 shadow-xl shadow-green-1/30 py-2 px-4 rounded-xl w-56 h-16 mt-7 justify-center items-center hover:bg-purple-200 transition-transform duration-300 transform hover:scale-110 active:scale-95">
               <Image 
               alt=""
               className="mr-3"
               src={upload} />
               Upload Image
-            </button>
+            </button> */}
+            <div className="flex items-center justify-center mb-4">
+              <label htmlFor="file-upload" className="flex bg-white-1 text-green-1 font-bold border-4 border-green-1 shadow-xl shadow-green-1/30 py-2 px-4 rounded-xl w-56 h-16 mt-7 justify-center items-center hover:bg-purple-200 transition-transform duration-300 transform hover:scale-110 active:scale-95">              
+                <Image alt="" className="mr-3" src={upload} /> Upload Image
+              </label>
+              <input id="file-upload" type="file" className="hidden" onChange={handleUploadLocalFile}/>
+            </div>
+            <div>
+            <button onClick={handleUploadS3}>S3 Upload</button>
+            </div>
           </div>
 
         </div>
+
       </div>
 
     </main>
