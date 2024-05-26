@@ -14,7 +14,7 @@ export default function Upload() {
           <p className="text-green-4 text-3xl font-normal mt-3">
           Upload a soybean leaf image by pressing button below
           </p>
-          <button className="flex bg-white-1 text-green-1 font-bold border-4 border-green-1 shadow-xl shadow-green-1/30 py-2 px-4 rounded-xl w-56 h-16 mt-7 justify-center items-center hover:bg-purple-200 transition-transform duration-300 transform hover:scale-110 active:scale-95">
+          <button className="flex bg-white-1 text-green-1 font-bold border-4 border-green-1 shadow-xl shadow-green-1/30 py-2 px-4 rounded-xl w-56 h-16 mt-7 justify-center items-center transition-transform duration-300 transform hover:scale-110 active:scale-95">
             <Image 
               alt=""
               className="mr-3"
