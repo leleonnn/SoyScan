@@ -1,29 +1,57 @@
+"use client";
+import React, { useState, useEffect } from "react";
+
 import Image from "next/image";
-import Link from "next/link";
 import Navbar from ".././components/Navbar";
 import img from "../../../public/2.png";
 
-const Card = ({ name, cause, link }) => {
+const Card = ({ imglink, name, cause }) => {
   return (
-    <Link href={link} passHref>
-      <div className="w-64 h-80 bg-green-2 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
-        <div className="relative w-full bg-green-1 rounded-md">
-          <Image
-            src={img}
-            alt="image"
-            className="object-cover h-full w-full rounded-md"
-          />
-        </div>
-        <div>
-          <p className="font-semibold text-lg mt-4">{name}</p>
-          <p className="font-light text-sm mt-1">{cause}</p>
-        </div>
+    <a
+      href={`/Disease/${name}`}
+      className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer "
+    >
+      <div
+        type="square"
+        className="relative w-full bg-green-1 border-2 border-green-1 rounded-md"
+      >
+        <img
+          id="true"
+          src={imglink}
+          alt="image"
+          // fill
+          className={`object-cover h-full w-full rounded-md`}
+        />
       </div>
-    </Link>
+      <div className="text-green-3">
+        <p className="font-bold text-lg mt-4">{name}</p>
+        <p className="font-regular text-xs mt-1">{cause}</p>
+      </div>
+    </a>
   );
 };
 
-const Library = () => {
+export default function Library() {
+  const [data, setData] = useState([]);
+  const [error, setError] = useState(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(
+          "http://172.203.225.191:8000/api/diseases"
+        );
+        const result = await response.json();
+        setData(result);
+
+        console.log(result);
+      } catch (error) {
+        setError("Failed to fetch data");
+      }
+    };
+    fetchData();
+  }, []);
+
   return (
     <main className="flex flex-col justify-between w-full">
       <Navbar library="true" />
@@ -32,16 +60,17 @@ const Library = () => {
           <p className="text-green-4 text-6xl font-bold mb-10">
             Disease Library
           </p>
-          <Card
-            name="Lorem Ipsum Disease"
-            cause="Virus Infection"
-            link="/Diseases/lorem-ipsum-disease"
-          />
-          {/* Add more cards here */}
+          <div className="grid lg:grid-cols-4 md:grid-cols-2 auto-rows-max gap-8 ">
+            {data.map((rows) => (
+              <Card
+                imglink={rows.imageLink}
+                name={rows.name}
+                cause={rows.rarity}
+              />
+            ))}
+          </div>
         </div>
       </div>
     </main>
   );
-};
-
-export default Library;
+}
