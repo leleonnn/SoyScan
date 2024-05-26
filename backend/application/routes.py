@@ -62,7 +62,7 @@ def get_disease_by_name(name):
         # Log the error for debugging
         return jsonify({"error": "Internal server error"}), 500
     
-@app.route("/api/disease/<classifName>", methods=["GET"])
+@app.route("/api/disease/classif/<classifName>", methods=["GET"])
 @cross_origin(supports_credentials=True)
 def get_disease_by_classifName(classifName):
     try:
