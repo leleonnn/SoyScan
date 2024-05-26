@@ -7,6 +7,7 @@ import { useState } from "react";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
 import { useRouter } from "next/navigation";  // Import useRouter from next/navigation
+// import Link from 'next/link'
 
 export default function Upload() {
   const [file, setFile] = useState(null);
@@ -47,7 +48,7 @@ export default function Upload() {
       console.log("File uploaded successfully:", fileName);
 
       // Navigate to the result page with the filename as a query parameter
-      router.replace(`/Result?fileName=${fileName}`);
+      router.push(`/Result?fileName=${fileName}`);
 
     } catch (error) {
       console.error("Error uploading file:", error);
