@@ -80,14 +80,14 @@ export default function Upload() {
               />
               {file.name && (
                 <div className="mt-4">
-                  <p>Uploaded File Name: {file.name}</p>
+                  <p>File Name: {file.name}</p>
                 </div>
               )}
               <button
                 onClick={handleUploadS3}
                 className="flex bg-green-1 text-white font-bold py-2 px-4 rounded-xl mt-4"
               >
-                S3 Upload
+                Upload
               </button>
             </div>
           )}
