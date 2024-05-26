@@ -31,3 +31,7 @@ body {
     text-wrap: balance;
   }
 }
+
+div[type="square"]{
+  aspect-ratio: 1/1;
+}
