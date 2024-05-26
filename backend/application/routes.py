@@ -62,6 +62,25 @@ def get_disease_by_name(name):
         # Log the error for debugging
         return jsonify({"error": "Internal server error"}), 500
     
+@app.route("/api/disease/<classifName>", methods=["GET"])
+@cross_origin(supports_credentials=True)
+def get_disease_by_classifName(classifName):
+    try:
+        if classifName is None:
+            return jsonify({"error": "Missing 'name' parameter"}), 400
+
+        diseases = db.disease.find_one({'classifName': classifName})
+        if diseases:
+            return dumps(diseases)
+        else:
+            return jsonify({"error": f"No disease found with name '{classifName}'"}), 404
+
+    except KeyError:
+        return jsonify({"error": "Invalid request data"}), 400
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": "Internal server error"}), 500
+    
 @app.route("/api/diseases", methods=["GET"])
 @cross_origin(supports_credentials=True)
 def get_all_diseases():
@@ -210,7 +229,6 @@ def predict_image_from_s3():
         return jsonify({"error": f"Internal server error, {e}"}), 500
     
 @app.route("/api/predict-disease-by-image-key/<key>", methods=["GET"])
-@cross_origin(supports_credentials=True)
 def predict_disease_by_image_key(key):
     try:
         if id is None:
