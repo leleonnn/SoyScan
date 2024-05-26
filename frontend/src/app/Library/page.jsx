@@ -4,7 +4,7 @@ import Navbar from ".././components/Navbar";
 
 const Card = ({imglink, name, cause}) => {
   return(
-  <a href={`/Disease/${name}`} className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
+  <a href={`/Disease?diseaseName=${name}`} className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
       <div type="square" className="relative w-full bg-green-1 border-2 border-green-1 rounded-md">
         <img
           id="true"
