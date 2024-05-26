@@ -9,6 +9,7 @@ import cv2
 import numpy as np
 import os
 from ultralytics import YOLO
+from flask_cors import CORS, cross_origin
 
 @app.route("/", methods=["POST"])
 def index():
@@ -17,6 +18,7 @@ def index():
 
 # Disease
 @app.route("/api/disease", methods=["POST"])
+@cross_origin(supports_credentials=True)
 def add_disease():
     try:
         body = request.json
@@ -42,6 +44,7 @@ def add_disease():
     
 
 @app.route("/api/disease/<name>", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_disease_by_name(name):
     try:
         if name is None:
@@ -60,6 +63,7 @@ def get_disease_by_name(name):
         return jsonify({"error": "Internal server error"}), 500
     
 @app.route("/api/diseases", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_all_diseases():
     try:
         diseases = db.disease.find()
@@ -74,6 +78,7 @@ def get_all_diseases():
 
 # Soy
 @app.route("/api/soy", methods=["POST"])
+@cross_origin(supports_credentials=True)
 def predict_soy():
     try:
         body = request.json
@@ -106,6 +111,7 @@ def predict_soy():
         return jsonify({"error": str(e)})
 
 @app.route("/api/soy/<id>", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_prediction_result(id):
     try:
         if id is None:
@@ -127,6 +133,7 @@ def get_prediction_result(id):
 
 
 @app.route("/api/get-image", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def get_image_from_s3():
     try:
         if id is None:
@@ -162,6 +169,7 @@ def get_image_from_s3():
     
 
 @app.route("/api/predict-image-from-s3", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def predict_image_from_s3():
     try:
         if id is None:
@@ -202,6 +210,7 @@ def predict_image_from_s3():
         return jsonify({"error": f"Internal server error, {e}"}), 500
     
 @app.route("/api/predict-disease-by-image-key/<key>", methods=["GET"])
+@cross_origin(supports_credentials=True)
 def predict_disease_by_image_key(key):
     try:
         if id is None:
