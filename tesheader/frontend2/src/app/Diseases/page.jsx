@@ -1,20 +1,29 @@
-import { useRouter } from "next/router";
+"use client";
 import { useEffect, useState } from "react";
+import { useSearchParams } from "next/navigation";
 import Navbar from "../../components/Navbar";
 
-const DiseasePage = () => {
-  const router = useRouter();
-  const { disease } = router.query;
-  const [diseaseData, setDiseaseData] = useState(null);
-  const [error, setError] = useState(null);
+interface DiseaseData {
+  name: string;
+  imageLink: string;
+  rarity: string;
+  symptoms: string;
+  suggestions: string;
+}
+
+const DiseasePage: React.FC = () => {
+  const searchParams = useSearchParams();
+  const diseaseName = searchParams.get("diseaseName");
+  const [diseaseData, setDiseaseData] = useState<DiseaseData | null>(null);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    if (disease) {
+    if (diseaseName) {
       const fetchData = async () => {
         try {
           const response = await fetch(
             `http://172.203.225.191:8000/api/diseases/${encodeURIComponent(
-              disease
+              diseaseName
             )}`
           );
           const result = await response.json();
@@ -25,7 +34,7 @@ const DiseasePage = () => {
       };
       fetchData();
     }
-  }, [disease]);
+  }, [diseaseName]);
 
   if (error) {
     return <div>Error: {error}</div>;
