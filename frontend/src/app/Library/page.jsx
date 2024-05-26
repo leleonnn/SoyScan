@@ -1,9 +1,6 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
-import Image from "next/image";
 import Navbar from ".././components/Navbar";
-import img from "../../../public/2.png"
 
 const Card = ({imglink, name, cause}) => {
   return(
@@ -13,7 +10,6 @@ const Card = ({imglink, name, cause}) => {
           id="true"
           src={imglink}
           alt="image"
-          // fill
           className={`object-cover h-full w-full rounded-md`}
         />
       </div>
