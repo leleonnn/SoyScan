@@ -1,14 +1,11 @@
 "use client";
 import React, { useState, useEffect } from "react";
-
-import Image from "next/image";
 import Navbar from ".././components/Navbar";
-import img from "../../../public/2.png";
 
 const Card = ({ imglink, name, cause }) => {
   return (
     <a
-      href={`/Disease/${name}`}
+      href={`/Disease?diseaseName=${name}`}
       className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer "
     >
       <div
@@ -19,7 +16,6 @@ const Card = ({ imglink, name, cause }) => {
           id="true"
           src={imglink}
           alt="image"
-          // fill
           className={`object-cover h-full w-full rounded-md`}
         />
       </div>
@@ -55,7 +51,7 @@ export default function Library() {
   return (
     <main className="flex flex-col justify-between w-full">
       <Navbar library="true" />
-      <div className="flex relative h-screen w-full bg-white-1 justify-center">
+      <div className="flex relative h-full w-full bg-white-1 justify-center">
         <div className="flex flex-col items-center mt-32">
           <p className="text-green-4 text-6xl font-bold mb-10">
             Disease Library

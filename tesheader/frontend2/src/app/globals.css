@@ -31,3 +31,11 @@ body {
     text-wrap: balance;
   }
 }
+
+div[type="square"] {
+  aspect-ratio: 1/1;
+}
+
+div[type="camera"] {
+  aspect-ratio: 16/9;
+}
