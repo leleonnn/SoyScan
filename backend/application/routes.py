@@ -68,7 +68,7 @@ def get_all_diseases():
 
     except Exception as e:
         # Log the error for debugging
-        return jsonify({"error": "Internal server error"}), 500
+        return jsonify({"error": str(e)}), 500
 
     
 
