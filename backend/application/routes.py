@@ -59,6 +59,18 @@ def get_disease_by_name(name):
         # Log the error for debugging
         return jsonify({"error": "Internal server error"}), 500
     
+@app.route("/api/diseases", methods=["GET"])
+def get_all_diseases():
+    try:
+        diseases = db.disease.find()
+        disease_list = list(diseases)
+        return dumps(disease_list), 200
+
+    except Exception as e:
+        # Log the error for debugging
+        return jsonify({"error": "Internal server error"}), 500
+
+    
 
 # Soy
 @app.route("/api/soy", methods=["POST"])
