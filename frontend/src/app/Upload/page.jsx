@@ -6,10 +6,13 @@ import upload from "../../../public/upload.png";
 import { useState } from "react";
 import { PutObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { v4 as uuidv4 } from "uuid";
+import { useRouter } from "next/navigation";  // Import useRouter from next/navigation
 
 export default function Upload() {
   const [file, setFile] = useState(null);
   const [uploadedFileName, setUploadedFileName] = useState("");
+
+  const router = useRouter();  // Initialize useRouter
 
   const Bucket = process.env.NEXT_PUBLIC_S3_UPLOAD_BUCKET;
   const s3 = new S3Client({
@@ -42,6 +45,10 @@ export default function Upload() {
       await s3.send(uploadToS3);
       setUploadedFileName(file.name);
       console.log("File uploaded successfully:", fileName);
+
+      // Navigate to the result page with the filename as a query parameter
+      router.replace(`/Result?fileName=${fileName}`);
+
     } catch (error) {
       console.error("Error uploading file:", error);
     }

@@ -1,10 +1,26 @@
+"use client"
+
 import Image from "next/image";
 import Navbar from ".././components/Navbar";
 import img from "../../../public/2.png"
 import arrow from "../../../public/arrow.svg"
 import Link from "next/link";
+import { useRouter } from "next/navigation";
+import { useState, useEffect} from "react";
 
 export default function Result() {
+
+    const router = useRouter();
+    const [file, setFile] = useState(null);
+
+    useEffect(() => {
+        // Wait until router.query is populated
+        if (router.isReady) {
+          const { filename } = router.query.filename;
+          setFile(filename);
+        }
+      }, [router.isReady, router.query]);
+
   return (
     <main className="flex flex-col justify-between w-full">
       <Navbar/>
@@ -104,6 +120,11 @@ export default function Result() {
                   />
                   </div>
                 </Link>
+
+                <div>
+      <h1>Upload Result</h1>
+      {file && <p>Uploaded File: {file}</p>}
+    </div>
 
               </div>
             </div>
