@@ -4,72 +4,73 @@ import { useSearchParams } from "next/navigation";
 import Navbar from "../components/Navbar";
 
 const DiseasePage = () => {
-  const searchParams = useSearchParams();
-  const diseaseName = searchParams.get("diseaseName");
   const [diseaseData, setDiseaseData] = useState(null);
   const [error, setError] = useState(null);
+  const [file, setFile] = useState(null);
+
+  const searchParams = useSearchParams();
+  const search = searchParams.get('diseaseName');
 
   useEffect(() => {
-    if (diseaseName) {
+    if (search) {
+      setFile(search);
+    }
+  }, [search]);
+
+  useEffect(() => {
+    if (file) {
       const fetchData = async () => {
         try {
-          // Encode the disease name to handle spaces and special characters
-          const encodedDiseaseName = encodeURIComponent(diseaseName);
-          const response = await fetch(
-            `http://172.203.225.191:8000/api/get-disease-by-name/${encodedDiseaseName}`
-          );
-          console.log(`Fetching data for: ${encodedDiseaseName}`);
-          if (!response.ok) {
-            console.error(`Failed to fetch data: ${response.statusText}`);
-            throw new Error("Network response was not ok");
-          }
+          console.log(`Fetching data for: ${file}`);
+          const response = await fetch(`http://172.203.225.191:8000/api/disease/classif/${file}`);
           const result = await response.json();
-          if (result.length === 0) {
-            throw new Error("Disease not found");
+          if (response.ok) {
+            setDiseaseData(result);
+            console.log('Fetched data:', result);
+          } else {
+            throw new Error(result.message || 'Failed to fetch data');
           }
-          console.log("Fetched data:", result[0]);
-          setDiseaseData(result[0]); // Assuming the API returns an array of results
         } catch (error) {
-          console.error("Error fetching data:", error);
-          setError("Failed to fetch data");
+          console.error('Error fetching data:', error);
+          setError('Failed to fetch data');
         }
       };
       fetchData();
     }
-  }, [diseaseName]);
+  }, [file]);
 
   if (error) {
     return (
-      <div className="flex flex-col justify-between w-full">
+      <main className="flex flex-col justify-between items-center w-full">
         <Navbar />
-        <div className="flex relative h-full w-full bg-white-1 items-center justify-center">
-          <div className="flex flex-col items-center p-8 bg-white shadow-lg rounded-lg">
+        <div className="flex relative h-screen w-2/3 mt-32 bg-white-1 items-center justify-center">
+          <div className="flex flex-col items-center px-8 pb-8 bg-white shadow-lg rounded-lg">
             <h1 className="text-red-4 text-6xl font-bold">Error</h1>
             <p>{error}</p>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   if (!diseaseData) {
     return (
-      <div className="flex flex-col justify-between w-full">
+      <main className="flex flex-col justify-between items-center w-full">
         <Navbar />
-        <div className="flex relative h-full w-full bg-white-1 items-center justify-center">
-          <div className="flex flex-col items-center p-8 bg-white shadow-lg rounded-lg">
+        <div className="flex relative h-screen w-2/3 mt-32 bg-white-1 items-center justify-center">
+          <div className="flex flex-col items-center px-8 pb-8 bg-white shadow-lg rounded-lg">
             <h1 className="text-green-4 text-6xl font-bold">Loading...</h1>
           </div>
         </div>
-      </div>
+      </main>
     );
   }
 
   return (
-    <main className="flex flex-col justify-between w-full">
+    <main className="flex flex-col justify-between items-center w-full">
       <Navbar />
-      <div className="flex relative h-full w-full bg-white-1 items-center justify-center">
-        <div className="flex flex-col items-center p-8 bg-white shadow-lg rounded-lg">
+      <div className="flex relative h-screen w-2/3 mt-32 bg-white-1 items-center justify-center">
+        <div className="flex flex-col items-center px-8 pb-8 bg-white shadow-lg rounded-lg">
           <h1 className="text-green-4 text-6xl font-bold">
             {diseaseData.name}
           </h1>

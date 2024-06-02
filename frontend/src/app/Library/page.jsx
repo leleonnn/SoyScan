@@ -2,9 +2,9 @@
 import React, { useState, useEffect } from "react";
 import Navbar from ".././components/Navbar";
 
-const Card = ({imglink, name, cause}) => {
+const Card = ({imglink, name, cause, classifName}) => {
   return(
-  <a href={`/Disease?diseaseName=${name}`} className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
+  <a href={`/Disease?diseaseName=${classifName}`} className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
       <div type="square" className="relative w-full bg-green-1 border-2 border-green-1 rounded-md">
         <img
           id="true"
@@ -55,7 +55,7 @@ export default function Library() {
 				<div className="grid lg:grid-cols-4 md:grid-cols-2 auto-rows-max gap-8 ">
           {
             data.map((rows) => (
-              <Card imglink={rows.imageLink} name={rows.name} cause={rows.rarity}/>
+              <Card imglink={rows.imageLink} name={rows.name} cause={rows.rarity} classifName = {rows.classifName}/>
             ))
           }
         </div>
