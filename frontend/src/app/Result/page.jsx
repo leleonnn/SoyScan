@@ -5,7 +5,7 @@ import Navbar from "../components/Navbar";
 import arrow from "../../../public/arrow.svg";
 import Link from "next/link";
 import { useSearchParams } from 'next/navigation';
-import { useState, useEffect } from "react";
+import { useState, useEffect, Suspense } from "react";
 
 function Loading() {
     return (
@@ -15,7 +15,7 @@ function Loading() {
     );
 }
 
-export default function Result() {
+function ResultContent() {
     const [file, setFile] = useState(null);
     const [diseaseName, setDiseaseName] = useState(null);
     const [error, setError] = useState(null);
@@ -75,7 +75,7 @@ export default function Result() {
     }
 
     return (
-        <main className="flex flex-col justify-between w-full">
+        <div className="flex flex-col justify-between w-full">
             <Navbar />
             <div className="flex relative h-screen w-full bg-white-1 justify-center">
                 <div className="flex flex-col items-center mt-32 w-full mx-52">
@@ -115,7 +115,7 @@ export default function Result() {
                                         <p className="mt-6 font-semibold">
                                             Your soy is affected by:                
                                         </p>
-                                        <Link href="/Disease/" className="flex w-1/2 h-20 mt-1 rounded-xl bg-white-0 shadow-xl shadow-green-1/50 border-2 border-green-1/50 justify-between p-3 transform transition-all duration-300 hover:bg-green-3 hover:text-white-0 hover:shadow-xl active:scale-95 hover:cursor-pointer hover:shadow-yellow-1">
+                                        <Link href={`/Disease?diseaseName=${data.classifName}`} className="flex w-1/2 h-20 mt-1 rounded-xl bg-white-0 shadow-xl shadow-green-1/50 border-2 border-green-1/50 justify-between p-3 transform transition-all duration-300 hover:bg-green-3 hover:text-white-0 hover:shadow-xl active:scale-95 hover:cursor-pointer hover:shadow-yellow-1">
                                             <div className="flex flex-row w-full items-center justify-between">
                                                 <div className="">
                                                     <p className="font-bold text-xl">
@@ -180,6 +180,14 @@ export default function Result() {
                     </div>
                 </div>
             </div>
-        </main>
+        </div>
+    );
+}
+
+export default function Result() {
+    return (
+        <Suspense fallback={<Loading />}>
+            <ResultContent />
+        </Suspense>
     );
 }
