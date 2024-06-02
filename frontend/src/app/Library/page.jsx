@@ -1,12 +1,19 @@
 "use client";
 import React, { useState, useEffect } from "react";
 import Navbar from ".././components/Navbar";
+import Image from "next/image";
 
-const Card = ({imglink, name, cause, classifName}) => {
-  return(
-  <a href={`/Disease?diseaseName=${classifName}`} className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer ">
-      <div type="square" className="relative w-full bg-green-1 border-2 border-green-1 rounded-md">
-        <img
+const Card = ({ imglink, name, cause, classifName }) => {
+  return (
+    <a
+      href={`/Disease?diseaseName=${classifName}`}
+      className="w-64 h-80 bg-white-1 border-2 border-green-1 shadow-2xl shadow-green-1 rounded-xl py-4 px-4 transform transition-all hover:-translate-y-2 hover:shadow-yellow-1 duration-300 hover:cursor-pointer "
+    >
+      <div
+        type="square"
+        className="relative w-full bg-green-1 border-2 border-green-1 rounded-md"
+      >
+        <Image
           id="true"
           src={imglink}
           alt="image"
@@ -14,16 +21,12 @@ const Card = ({imglink, name, cause, classifName}) => {
         />
       </div>
       <div className="text-green-3">
-        <p className="font-bold text-lg mt-4">
-          {name}
-        </p>
-        <p className="font-regular text-xs mt-1">
-          {cause}
-        </p>
+        <p className="font-bold text-lg mt-4">{name}</p>
+        <p className="font-regular text-xs mt-1">{cause}</p>
       </div>
     </a>
-  )
-}
+  );
+};
 
 export default function Library() {
   const [data, setData] = useState([]);
@@ -53,11 +56,17 @@ export default function Library() {
             Disease Library
           </p>
 				<div className="grid lg:grid-cols-4 md:grid-cols-2 auto-rows-max gap-8 ">
-          {
-            data.map((rows) => (
-              <Card imglink={rows.imageLink} name={rows.name} cause={rows.rarity} classifName = {rows.classifName}/>
-            ))
-          }
+        {
+          data.map((row) => (
+            <Card
+              key={row.classifName} // Add key prop here
+              imglink={row.imageLink}
+              name={row.name}
+              cause={row.rarity}
+              classifName={row.classifName}
+            />
+          ))
+        }
         </div>
         </div>
       </div>
